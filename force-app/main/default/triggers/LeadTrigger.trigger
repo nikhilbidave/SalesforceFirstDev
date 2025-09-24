@@ -1,19 +1,18 @@
-trigger LeadTrigger on Lead (before insert, before update, after update) {
+trigger LeadTrigger on Lead (before insert, after insert, before update, after update) {
 
     switch on Trigger.operationType{
 
         when BEFORE_INSERT{
-            for(Lead leadRecord: Trigger.new){
-                    //If lead is blank then update LeadSource to Other
-                    if(String.isBlank(leadRecord.LeadSource)) {
-                        leadRecord.LeadSource = 'Other';
-                    }   
-                                       
-                    // Validation rule for Industry Field on Insertion
-                    if(String.isBlank(leadRecord.Industry) && Trigger.isInsert){
-                        leadRecord.addError('Industry Field Cannot be Blank');
-                    }
+                LeadTriggerHandler.beforeInsert(Tirgger.new);
+        }
+        
+        when AFTER_INSERT{
+           	List<Task> leadTasks = new List<Task>();
+            for(Lead leadRecord : Trigger.new){
+                Task leadTask = new Task(Subject='New Lead Task');
+                leadTasks.add(leadTask);
             }
+            insert leadTasks;
         }
         
         when BEFORE_UPDATE{
@@ -29,10 +28,5 @@ trigger LeadTrigger on Lead (before insert, before update, after update) {
                 }
             }
         }
-        
-        when AFTER_UPDATE{
-            // Future scope for after update operations
-        }
     }
-
 }

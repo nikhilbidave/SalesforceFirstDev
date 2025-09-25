@@ -3,7 +3,7 @@ trigger LeadTrigger on Lead (before insert, after insert, before update, after u
     switch on Trigger.operationType{
 
         when BEFORE_INSERT{
-                LeadTriggerHandler.beforeInsert(Tirgger.new);
+                LeadTriggerHandler.beforeInsert(Trigger.new);
         }
         
         when AFTER_INSERT{

@@ -23,4 +23,24 @@ public class ContactTriggerHandler {
         }
         AccountContactService.updateActiveContacts(accountIds);
     }
+
+    public static void afterDelete(List<Contact> oldContacts){
+        Set<Id> accountIds = new Set<Id>();
+        for(Contact con: oldContacts){
+            if(String.isNotBlank(con.AccountId)){
+                accountIds.add(con.AccountId);
+            } 
+        }
+        AccountContactService.updateActiveContacts(accountIds);
+    }
+        
+    public static void afterUndelete(List<Contact> newContacts){
+        Set<Id> accountIds = new Set<Id>();
+        for(Contact con: newContacts){
+            if(String.isNotBlank(con.AccountId)){
+                accountIds.add(con.AccountId);
+            }
+        }
+        AccountContactService.updateActiveContacts(accountIds);
+    }
 }

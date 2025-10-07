@@ -3,7 +3,7 @@ trigger ContactTrigger on Contact (after insert, after update, after delete, aft
     switch on Trigger.operationType{
 
         when AFTER_INSERT{
-                ContactTriggerHandler.afterInsert(Trigger.new);                
+            ContactTriggerHandler.afterInsert(Trigger.new);                
         }
         
         when AFTER_UPDATE{
@@ -11,11 +11,11 @@ trigger ContactTrigger on Contact (after insert, after update, after delete, aft
         }
         
         when AFTER_DELETE{
-            // ContactTriggerHandler.afterDelete(Trigger.old);
+            ContactTriggerHandler.afterDelete(Trigger.old);
         }
 
         when AFTER_UNDELETE{
-            // ContactTriggerHandler.afterUndelete(Trigger.new);
+            ContactTriggerHandler.afterUndelete(Trigger.new);
         }
     }
 

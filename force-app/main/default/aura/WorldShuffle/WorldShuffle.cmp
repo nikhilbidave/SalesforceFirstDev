@@ -1,0 +1,10 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+<lightning:card title="World Shuffle">
+
+    <lightning:combobox name="gameMode" label="Game Mode" value="inProgress" placeholder="Select Game Mode"  />
+      <lightning:button variant="brand" label="Start New Game" title="Start New Game" />
+      
+<lightning:button label="Reshuffle" title="Reshuffle" />
+
+</lightning:card>
+</aura:component>

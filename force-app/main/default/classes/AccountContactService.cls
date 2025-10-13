@@ -4,7 +4,7 @@ public with sharing class AccountContactService {
         
         List<AggregateResult> results = [SELECT AccountId, COUNT(Id) totalContacts FROM Contact WHERE Active__c=true and AccountId IN: accountIds GROUP BY AccountId];
 
-        Map<Id, Account> accountsToUpdate = new List<Id, Account>();
+        Map<Id, Account> accountsToUpdate = new Map<Id, Account>();
         // Map<Id, Integer> accountIdToContactCountMap = new Map<Id, Integer>();
         for(AggregateResult ar : results){
             Id accId = (Id) ar.get('AccountId');
@@ -17,6 +17,6 @@ public with sharing class AccountContactService {
                 accountsToUpdate.put(accId, new Account(Id = accId, Active_Contacts__c = 0));
             }
         }            
-        update accountsToUpdate;   
+        update accountsToUpdate.values();   
     }
 }

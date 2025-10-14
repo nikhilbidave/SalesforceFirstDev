@@ -1,10 +1,39 @@
-<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
-<lightning:card title="World Shuffle">
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+  <aura:attribute
+    name="modes"
+    type="List"
+    default="[
+    {'label': 'Easy', 'value': 'easy'},
+    {'label': 'Medium', 'value': 'medium'},
+    {'label': 'Hard', 'value': 'hard'}, 
+    ]"
+  />
 
-    <lightning:combobox name="gameMode" label="Game Mode" value="inProgress" placeholder="Select Game Mode"  />
-      <lightning:button variant="brand" label="Start New Game" title="Start New Game" />
-      
-<lightning:button label="Reshuffle" title="Reshuffle" />
+  <lightning:card title="World Shuffle">
+    <lightning:layout multipleRows="true" horizontalAlign="center">
+      <lightning:layoutItem padding="around-small" >
+        <lightning:combobox
+          name="gameMode"
+          label="Game Mode"
+          value="inProgress"
+          variant="label-hidden"
+          placeholder="Select Game Mode"
+          options="{! v.modes }"
+        />
+      </lightning:layoutItem>
 
-</lightning:card>
+      <lightning:layoutItem padding="around-small" >
+        <lightning:button
+          variant="brand"
+          label="Start New Game"
+          title="Start New Game"
+          onclick="{! c.startGame}"
+        />
+      </lightning:layoutItem>
+
+      <lightning:layoutItem padding="around-small" >
+        <lightning:button label="Reshuffle" title="Reshuffle" onclick="{! c.reshuffle }" />
+      </lightning:layoutItem>
+    </lightning:layout>
+  </lightning:card>
 </aura:component>
